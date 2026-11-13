@@ -1,0 +1,583 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0F766E">
+<title>AI 学习任务管理器 · 交互原型</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="app-shell" id="app">
+
+  <!-- ========== P01 今天 ========== -->
+  <section class="view is-active" id="P01">
+    <header class="view-header">
+      <h1 class="view-header__title">今天</h1>
+      <p class="view-header__meta">11月2日 周日</p>
+    </header>
+    <div class="view-body view-body--with-tabbar">
+      <div class="alert-banner">
+        <p class="alert-banner__title">这周 8 个任务 · 预计 12 小时</p>
+        <p class="alert-banner__desc">周三偏紧，建议推迟 1 项</p>
+      </div>
+
+      <div class="day-timeline">
+        <div class="day-timeline__hour-marks" id="hourMarks"></div>
+        <div class="day-timeline__lane">
+          <div class="time-block time-block--course" style="top:0;height:64px">
+            <span class="time-block__title">高等数学</span><span class="time-block__meta">教三 204</span>
+          </div>
+          <div class="time-block time-block--course" style="top:78px;height:64px">
+            <span class="time-block__title">大学英语</span><span class="time-block__meta">外语楼 501</span>
+          </div>
+          <div class="time-block time-block--course" style="top:238px;height:64px">
+            <span class="time-block__title">数据库原理</span><span class="time-block__meta">机房 A</span>
+          </div>
+          <div class="day-timeline__free-slot" style="top:318px;height:78px">空档 2 小时</div>
+          <div class="day-timeline__now-line" style="top:412px"><i></i></div>
+          <div class="time-block time-block--task" style="top:438px;height:58px">
+            <span class="tag tag--ai">AI</span>
+            <span class="time-block__title">数据库实验报告</span><span class="time-block__meta">2h · AI 排的</span>
+          </div>
+          <div class="time-block time-block--task time-block--pending" style="top:508px;height:44px">
+            <span class="time-block__title">英语作文 300 词</span><span class="time-block__meta">1h · 待确认</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="compose-button" type="button" data-go="P03" aria-label="新增任务">+</button>
+    <nav class="tab-bar" data-tabbar></nav>
+  </section>
+
+  <!-- ========== P02 收件箱 ========== -->
+  <section class="view" id="P02">
+    <header class="view-header">
+      <button class="view-header__back" type="button" data-back aria-label="返回">←</button>
+      <h1 class="view-header__title">收件箱</h1>
+      <button class="view-header__action" type="button">全选</button>
+    </header>
+    <div class="view-body view-body--with-tabbar">
+      <div class="alert-banner alert-banner--info">
+        <p class="alert-banner__title">3 条待确认</p>
+        <p class="alert-banner__desc">来自班级群消息 · 2 分钟前</p>
+      </div>
+
+      <ul class="task-list">
+        <li class="task-item" data-go="P04">
+          <span class="task-check">✓</span>
+          <span class="task-item__body">
+            <span class="task-item__title">高等数学 · P120 习题</span>
+            <span class="task-item__meta">截止 周五 23:59 · 估时 1.5h</span>
+          </span>
+          <span class="tag">高数</span>
+        </li>
+        <li class="task-item" data-go="P04">
+          <span class="task-check">✓</span>
+          <span class="task-item__body">
+            <span class="task-item__title">英语作文 300 词</span>
+            <span class="task-item__meta">截止 周五 23:59 · 估时 1h</span>
+          </span>
+          <span class="tag">英语</span>
+        </li>
+        <li class="task-item" data-go="P04">
+          <span class="task-check task-check--idle">✓</span>
+          <span class="task-item__body">
+            <span class="task-item__title">数据库实验报告</span>
+            <span class="task-item__meta">估时 4h · 未写截止</span>
+          </span>
+          <span class="tag tag--warning">待补</span>
+        </li>
+      </ul>
+
+      <h2 class="section-heading">昨天确认的</h2>
+      <ul class="task-list">
+        <li class="task-item is-done">
+          <span class="task-check">✓</span>
+          <span class="task-item__body">
+            <span class="task-item__title">离散数学作业 3</span>
+            <span class="task-item__meta">已完成 · 实际 2.5h</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+    <nav class="tab-bar" data-tabbar></nav>
+  </section>
+
+  <!-- ========== P03 记一件事 ========== -->
+  <section class="view" id="P03">
+    <header class="view-header">
+      <button class="view-header__back" type="button" data-back aria-label="返回">←</button>
+      <h1 class="view-header__title">记一件事</h1>
+    </header>
+    <div class="view-body">
+      <div class="content-card">
+        <textarea class="note-textarea" rows="3" placeholder="例如：下周三交数据库实验报告，估计要四个小时"></textarea>
+        <div class="content-card__tag-row">
+          <span class="tag tag--ghost">截图</span>
+          <span class="tag tag--ghost">文件</span>
+          <span class="tag tag--ghost">语音</span>
+        </div>
+      </div>
+
+      <h2 class="section-heading">或者直接粘贴</h2>
+      <button class="content-card content-card--action" type="button" data-go="P04">
+        <span class="content-card__shortcut">⌘V</span>
+        <span class="content-card__body">
+          <span class="content-card__caption">粘贴一段群通知</span>
+          <span class="content-card__desc">我帮你拆成任务，先给你确认</span>
+        </span>
+        <span class="content-card__arrow">›</span>
+      </button>
+    </div>
+    <footer class="view-footer">
+      <button class="action-button" type="button" data-submit data-go="P04">让 AI 读一下</button>
+    </footer>
+  </section>
+
+  <!-- ========== P04 解析确认 ========== -->
+  <section class="view" id="P04">
+    <header class="view-header">
+      <button class="view-header__back" type="button" data-back aria-label="返回">←</button>
+      <h1 class="view-header__title">识别到 3 个任务</h1>
+      <button class="view-header__action" type="button">全选</button>
+    </header>
+    <div class="view-body">
+      <div class="source-quote">
+        <p class="source-quote__label">来自 · 班级群消息</p>
+        <p class="source-quote__text">本周作业：1.高数 P120 习题 2.英语作文 300 词 3.数据库实验报告</p>
+        <p class="source-quote__hint">长按可查看原文</p>
+      </div>
+
+      <ul class="task-list task-list--confirm">
+        <li class="task-item">
+          <span class="task-check">✓</span>
+          <span class="task-item__body">
+            <span class="task-item__title">高等数学 · P120 习题</span>
+            <span class="task-item__meta">截止 周五 23:59 · 估时 1.5h</span>
+          </span>
+          <span class="tag tag--ghost">改</span>
+        </li>
+        <li class="task-item">
+          <span class="task-check">✓</span>
+          <span class="task-item__body">
+            <span class="task-item__title">英语作文 300 词</span>
+            <span class="task-item__meta">截止 周五 23:59 · 估时 1h</span>
+          </span>
+          <span class="tag tag--ghost">改</span>
+        </li>
+        <li class="task-item">
+          <span class="task-check">✓</span>
+          <span class="task-item__body">
+            <span class="task-item__title">数据库实验报告</span>
+            <span class="task-item__meta">截止 周五 23:59 · 估时 4h</span>
+            <span class="task-item__note">假设：未写截止，按惯例补</span>
+          </span>
+          <span class="tag tag--ghost">改</span>
+        </li>
+      </ul>
+
+      <div class="alert-banner alert-banner--warning">
+        <p class="alert-banner__title">1 条估计基于假设</p>
+        <p class="alert-banner__desc">估时来自「一整份作业」的历史平均，可改</p>
+      </div>
+    </div>
+    <footer class="view-footer">
+      <button class="action-button" type="button" data-toast="已加入收件箱 · 3 个任务" data-go="P02">全部加入（3 个）</button>
+      <button class="action-button action-button--text" type="button">逐条确认</button>
+    </footer>
+  </section>
+
+  <!-- ========== P05 本周计划 ========== -->
+  <section class="view has-tabbar" id="P05">
+    <header class="view-header">
+      <button class="view-header__back" type="button" data-back aria-label="返回">←</button>
+      <h1 class="view-header__title">本周计划</h1>
+      <p class="view-header__meta">11/3 – 11/9</p>
+    </header>
+    <div class="view-body">
+      <div class="alert-banner alert-banner--warning">
+        <p class="alert-banner__title">11 小时任务 · 9 小时空档</p>
+        <p class="alert-banner__desc">超载约 2 小时，建议推迟 2 项</p>
+      </div>
+
+      <ul class="day-load-list">
+        <li class="day-load-item">
+          <span class="day-load-item__date">周一 11/3</span>
+          <span class="day-load-item__task">高数 1.5h · 英语 1h</span>
+          <span class="day-load-item__load">2.5 / 3h</span>
+        </li>
+        <li class="day-load-item">
+          <span class="day-load-item__date">周二 11/4</span>
+          <span class="day-load-item__task">数据库实验 2h</span>
+          <span class="day-load-item__load">2 / 3h</span>
+        </li>
+        <li class="day-load-item day-load-item--overloaded">
+          <span class="day-load-item__date">周三 11/5</span>
+          <span class="day-load-item__task">实验报告 4h（分两段）</span>
+          <span class="day-load-item__load">3 / 3h</span>
+        </li>
+        <li class="day-load-item">
+          <span class="day-load-item__date">周四 11/6</span>
+          <span class="day-load-item__task">英语作文 1h</span>
+          <span class="day-load-item__load">1 / 3h</span>
+        </li>
+        <li class="day-load-item day-load-item--idle">
+          <span class="day-load-item__date">周五 11/7</span>
+          <span class="day-load-item__task">空</span>
+          <span class="day-load-item__load">0 / 3h</span>
+        </li>
+        <li class="day-load-item">
+          <span class="day-load-item__date">周六 11/8</span>
+          <span class="day-load-item__task">复习 2h</span>
+          <span class="day-load-item__load">2 / 3h</span>
+        </li>
+        <li class="day-load-item day-load-item--idle">
+          <span class="day-load-item__date">周日 11/9</span>
+          <span class="day-load-item__task">休息（不排）</span>
+          <span class="day-load-item__load">0 / 3h</span>
+        </li>
+      </ul>
+
+      <div class="content-card content-card--accent">
+        <p class="content-card__caption">建议推迟</p>
+        <div class="content-card__tag-row">
+          <span class="tag tag--warning">毛概论文</span>
+          <span class="tag tag--warning">物理预习</span>
+        </div>
+        <p class="content-card__desc">推迟到下周一，不影响其他任务</p>
+      </div>
+
+      <dl class="week-summary">
+        <div class="week-summary__item"><dt class="week-summary__label">本周任务</dt><dd class="week-summary__value">8</dd></div>
+        <div class="week-summary__item"><dt class="week-summary__label">需要</dt><dd class="week-summary__value">11h</dd></div>
+        <div class="week-summary__item"><dt class="week-summary__label">空档</dt><dd class="week-summary__value is-primary">9h</dd></div>
+      </dl>
+    </div>
+    <footer class="view-footer">
+      <button class="action-button" type="button" data-toast="计划已采纳 · 可随时撤销" data-go="P06">采纳这份计划</button>
+    </footer>
+    <nav class="tab-bar" data-tabbar></nav>
+  </section>
+
+  <!-- ========== P06 计划对比 ========== -->
+  <section class="view" id="P06">
+    <header class="view-header">
+      <button class="view-header__back" type="button" data-back aria-label="返回">←</button>
+      <h1 class="view-header__title">已调整 3 项</h1>
+      <button class="action-button action-button--compact" type="button" data-toast="已回到上一版" data-go="P05">撤销</button>
+    </header>
+    <div class="view-body">
+      <p class="lead-text">刚才的排期被改动了 3 处</p>
+
+      <ul class="change-list">
+        <li class="change-item change-item--moved">
+          <div class="change-item__header">
+            <span class="change-item__title">数据库实验报告</span>
+            <span class="tag tag--warning">移动</span>
+          </div>
+          <dl class="change-item__detail">
+            <dt>原</dt><dd class="is-strike">周三 19:00</dd>
+            <dt>现</dt><dd class="is-strong">周四 19:00</dd>
+          </dl>
+        </li>
+        <li class="change-item change-item--moved">
+          <div class="change-item__header">
+            <span class="change-item__title">英语作文 300 词</span>
+            <span class="tag tag--warning">移动</span>
+          </div>
+          <dl class="change-item__detail">
+            <dt>原</dt><dd class="is-strike">周四 20:00</dd>
+            <dt>现</dt><dd class="is-strong">周三 20:00</dd>
+          </dl>
+        </li>
+        <li class="change-item change-item--postponed">
+          <div class="change-item__header">
+            <span class="change-item__title">毛概论文</span>
+            <span class="tag tag--ghost">推迟</span>
+          </div>
+          <dl class="change-item__detail">
+            <dt>原</dt><dd class="is-strike">本周日 23:59</dd>
+            <dt>现</dt><dd class="is-strong">下周一 23:59</dd>
+          </dl>
+        </li>
+      </ul>
+
+      <button class="content-card content-card--muted" type="button">
+        <span class="content-card__desc">另有 5 项未变动，点开查看</span>
+        <span class="content-card__arrow">›</span>
+      </button>
+
+      <dl class="week-summary">
+        <div class="week-summary__item"><dt class="week-summary__label">移动</dt><dd class="week-summary__value is-warn">2 项</dd></div>
+        <div class="week-summary__item"><dt class="week-summary__label">推迟</dt><dd class="week-summary__value">1 项</dd></div>
+        <div class="week-summary__item"><dt class="week-summary__label">周内总时长</dt><dd class="week-summary__value is-primary">9.5h</dd></div>
+      </dl>
+      <p class="footnote-text">撤销后，3 项会回到调整前的时段</p>
+    </div>
+    <footer class="view-footer">
+      <button class="action-button" type="button" data-toast="已保留本次调整" data-go="P05">保留这次调整</button>
+      <button class="action-button action-button--outline" type="button" data-toast="已回到上一版" data-go="P05">撤销，回到上一版</button>
+    </footer>
+  </section>
+
+  <!-- ========== P07 课程表 ========== -->
+  <section class="view" id="P07">
+    <header class="view-header">
+      <button class="view-header__back" type="button" data-back aria-label="返回">←</button>
+      <h1 class="view-header__title">课程表</h1>
+      <button class="view-header__action" type="button">导入</button>
+    </header>
+    <div class="view-body view-body--with-tabbar">
+      <div class="content-card content-card--compact">
+        <div class="timetable" id="weekHead"></div>
+        <div class="timetable" id="weekGrid"></div>
+      </div>
+
+      <h2 class="section-heading">本周还有</h2>
+      <ul class="task-list">
+        <li class="task-item">
+          <span class="task-check task-check--idle">✓</span>
+          <span class="task-item__body">
+            <span class="task-item__title">周四 14:00 数据库上机</span>
+            <span class="task-item__meta">机房 A · 带 U 盘</span>
+          </span>
+        </li>
+        <li class="task-item">
+          <span class="task-check task-check--idle">✓</span>
+          <span class="task-item__body">
+            <span class="task-item__title">周五 10:00 英语随堂测</span>
+            <span class="task-item__meta">外语楼 501</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+    </section>
+
+  <!-- ========== P08 任务详情 ========== -->
+  <section class="view" id="P08">
+    <header class="view-header">
+      <button class="view-header__back" type="button" data-back aria-label="返回">←</button>
+      <h1 class="view-header__title">任务详情</h1>
+      <button class="view-header__action" type="button">编辑</button>
+    </header>
+    <div class="view-body">
+      <div class="content-card">
+        <div class="content-card__tag-row">
+          <span class="tag tag--warning">高优先</span>
+          <span class="tag">高数</span>
+        </div>
+        <h2 class="content-card__title">数据库实验报告</h2>
+        <p class="content-card__desc">周三 23:59 截止 · 还有 2 天</p>
+      </div>
+
+      <dl class="metric-list">
+        <div class="metric-row"><dt>预估</dt><dd>4 小时</dd></div>
+        <div class="metric-row"><dt>实际</dt><dd class="is-primary">2 小时 40 分</dd></div>
+        <div class="metric-row"><dt>你的系数</dt><dd class="is-warn">估 1h → 实际 1.8h</dd></div>
+      </dl>
+
+      <h2 class="section-heading">来源</h2>
+      <div class="source-quote">
+        <p class="source-quote__text">「3.数据库实验报告」— 来自 11/1 班级群消息</p>
+      </div>
+
+      <h2 class="section-heading">拆成三步</h2>
+      <ul class="task-list">
+        <li class="task-item">
+          <span class="task-check">✓</span>
+          <span class="task-item__body">
+            <span class="task-item__title">建表 + 插数据</span>
+            <span class="task-item__meta">40 分钟</span>
+          </span>
+        </li>
+        <li class="task-item">
+          <span class="task-check">✓</span>
+          <span class="task-item__body">
+            <span class="task-item__title">写查询语句</span>
+            <span class="task-item__meta">1 小时</span>
+          </span>
+        </li>
+        <li class="task-item">
+          <span class="task-check task-check--idle">✓</span>
+          <span class="task-item__body">
+            <span class="task-item__title">截图 + 排版</span>
+            <span class="task-item__meta">40 分钟</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+    <footer class="view-footer">
+      <button class="action-button" type="button" data-toast="开始计时 · 25 分钟" data-go="P01">开始做</button>
+    </footer>
+  </section>
+
+  <!-- ========== P09 历史 ========== -->
+  <section class="view" id="P09">
+    <header class="view-header">
+      <button class="view-header__back" type="button" data-back aria-label="返回">←</button>
+      <h1 class="view-header__title">历史</h1>
+      <button class="view-header__action" type="button">回收站</button>
+    </header>
+    <div class="view-body">
+      <h2 class="section-heading">计划版本</h2>
+      <ul class="task-list">
+        <li class="task-item">
+          <span class="task-item__body">
+            <span class="task-item__title">今天 14:20 · 调整 3 项</span>
+            <span class="task-item__meta">数据库实验报告、英语作文、毛概论文</span>
+          </span>
+          <span class="tag">当前</span>
+        </li>
+        <li class="task-item">
+          <span class="task-item__body">
+            <span class="task-item__title">今天 09:05 · 采纳 AI 方案</span>
+            <span class="task-item__meta">共 8 项，超载 2 项</span>
+          </span>
+          <span class="text-link">恢复</span>
+        </li>
+        <li class="task-item">
+          <span class="task-item__body">
+            <span class="task-item__title">昨天 21:40 · 推迟 2 项</span>
+            <span class="task-item__meta">毛概论文、物理预习</span>
+          </span>
+          <span class="text-link">恢复</span>
+        </li>
+      </ul>
+
+      <h2 class="section-heading">已删除（7 天内可恢复）</h2>
+      <ul class="task-list">
+        <li class="task-item">
+          <span class="task-item__body">
+            <span class="task-item__title">社团例会</span>
+            <span class="task-item__meta">删除于 11/2</span>
+          </span>
+          <span class="text-link">恢复</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ========== P10 我的 ========== -->
+  <section class="view" id="P10">
+    <header class="view-header">
+      <h1 class="view-header__title">我的</h1>
+      <p class="view-header__meta">王同学 · 大二</p>
+    </header>
+    <div class="view-body view-body--with-tabbar">
+      <ul class="setting-list">
+        <li class="setting-item"><span>作息时间</span><span class="setting-item__value">7:30 – 23:30</span><span class="setting-item__arrow">›</span></li>
+        <li class="setting-item"><span>每天可用小时</span><span class="setting-item__value">工作日 3h · 周末 5h</span><span class="setting-item__arrow">›</span></li>
+        <li class="setting-item"><span>截止前缓冲</span><span class="setting-item__value">20%</span><span class="setting-item__arrow">›</span></li>
+      </ul>
+
+      <h2 class="section-heading">AI</h2>
+      <ul class="setting-list">
+        <li class="setting-item">
+          <span class="setting-item__label">解析与排期<em>关掉后只能手动记</em></span>
+          <button class="toggle-switch is-on" type="button" data-switch aria-label="解析与排期"><span></span></button>
+        </li>
+        <li class="setting-item">
+          <span class="setting-item__label">学期推演<em>提前 4 周预警</em></span>
+          <button class="toggle-switch is-on" type="button" data-switch aria-label="学期推演"><span></span></button>
+        </li>
+        <li class="setting-item">
+          <span class="setting-item__label">主动关怀提醒<em>早 8 点一句话</em></span>
+          <button class="toggle-switch" type="button" data-switch aria-label="主动关怀提醒"><span></span></button>
+        </li>
+      </ul>
+
+      <h2 class="section-heading">数据</h2>
+      <ul class="setting-list">
+        <li class="setting-item" data-go="P07"><span>课程表</span><span class="setting-item__value">5 门课</span><span class="setting-item__arrow">›</span></li>
+        <li class="setting-item" data-go="P09"><span>操作历史</span><span class="setting-item__arrow">›</span></li>
+        <li class="setting-item"><span>导出全部数据</span><span class="setting-item__arrow">›</span></li>
+        <li class="setting-item"><span class="is-danger">清空所有数据</span><span class="setting-item__arrow">›</span></li>
+      </ul>
+      <p class="footnote-text">AI 学习任务管理器 · v1.0 · PWA</p>
+    </div>
+    <nav class="tab-bar" data-tabbar></nav>
+  </section>
+
+  <!-- ========== P11 学期 ========== -->
+  <section class="view" id="P11">
+    <header class="view-header">
+      <h1 class="view-header__title">学期</h1>
+      <p class="view-header__meta">第 8 周 · 期中</p>
+    </header>
+    <div class="view-body view-body--with-tabbar">
+      <span class="tag tag--warning">提前 4 周预警</span>
+      <h2 class="semester-verdict">第 8 周，你会同时<span>崩 3 门</span>。</h2>
+      <p class="lead-text">按前 4 周的速度算，那周要 21 小时，课表里只空出 9 小时。</p>
+
+      <div class="reassurance">
+        <span class="reassurance__title">还来得及</span>
+        <span class="reassurance__text">还有 4 周，每周多排 3 小时就够；不想动也行。</span>
+      </div>
+
+      <div class="semester-chart" id="weekChart"></div>
+      <div class="semester-chart__axis">
+        <span>第 1 周</span><span>第 4 周</span><span>第 8 周</span><span>第 12 周</span><span>第 16 周</span>
+      </div>
+
+      <div class="content-card">
+        <div class="content-card__header">
+          <h2 class="content-card__title">第 8 周 · 11/17–11/23</h2>
+          <span class="content-card__desc">5 个任务</span>
+        </div>
+        <div class="capacity-metrics">
+          <div class="capacity-metrics__item">
+            <span class="capacity-metrics__label">需要</span>
+            <strong class="capacity-metrics__value is-danger">21 小时</strong>
+          </div>
+          <div class="capacity-metrics__item">
+            <span class="capacity-metrics__label">你有</span>
+            <strong class="capacity-metrics__value is-primary">9 小时</strong>
+          </div>
+        </div>
+        <div class="capacity-bar"><span class="capacity-bar__fill"></span></div>
+        <p class="capacity-note">不是你慢，是那一周本来就排不下。</p>
+        <ul class="week-task-list">
+          <li class="week-task-list__item"><span class="week-task-list__dot"></span>毛概论文 · 终稿<em class="week-task-list__duration">6 h</em></li>
+          <li class="week-task-list__item"><span class="week-task-list__dot"></span>数据库实验报告<em class="week-task-list__duration">4 h</em></li>
+          <li class="week-task-list__item"><span class="week-task-list__dot"></span>英语作文 300 词<em class="week-task-list__duration">1 h</em></li>
+          <li class="week-task-list__item"><span class="week-task-list__dot"></span>离散数学 · 期中复习<em class="week-task-list__duration">10 h</em></li>
+        </ul>
+      </div>
+
+      <h2 class="section-heading">你可以这样处理</h2>
+      <ul class="recovery-option-list">
+        <li class="recovery-option" data-toast="已把论文拆到本周 · 第 8 周少 10 小时">
+          <span class="recovery-option__index">1</span>
+          <span class="recovery-option__body">
+            <span class="recovery-option__title">现在开始</span>
+            <span class="recovery-option__desc">本周做 2 小时论文，第 8 周就少 10 小时</span>
+          </span>
+          <span class="recovery-option__arrow">›</span>
+        </li>
+        <li class="recovery-option" data-toast="已标记 2 项为「本学期不做」">
+          <span class="recovery-option__index">2</span>
+          <span class="recovery-option__body">
+            <span class="recovery-option__title">放弃加分项</span>
+            <span class="recovery-option__desc">毛概加分题不算分，省下 6 小时</span>
+          </span>
+          <span class="recovery-option__arrow">›</span>
+        </li>
+        <li class="recovery-option" data-toast="已切到及格策略 · 省 4 小时">
+          <span class="recovery-option__index">3</span>
+          <span class="recovery-option__body">
+            <span class="recovery-option__title">一门降到及格</span>
+            <span class="recovery-option__desc">选修课只保必交任务，省 4 小时</span>
+          </span>
+          <span class="recovery-option__arrow">›</span>
+        </li>
+      </ul>
+    </div>
+    <nav class="tab-bar" data-tabbar></nav>
+  </section>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</main>
+<script src="main.js"></script>
+</body>
+</html>
